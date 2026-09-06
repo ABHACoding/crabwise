@@ -72,15 +72,23 @@ the overlay, and it is the whole point.
 
 ## Verifying a download
 
-Every release publishes `SHA256SUMS.txt`. Checking it is the only way to know the file you
-downloaded is the file that was built:
+Every release publishes `SHA256SUMS.txt`. Download it beside the installer, then run this
+from the folder holding both:
 
 ```powershell
-Get-FileHash .\Crabwise-Setup-*.exe -Algorithm SHA256
+(Get-FileHash .\Crabwise-Setup-0.1.0.exe -Algorithm SHA256).Hash -eq (Get-Content .\SHA256SUMS.txt).Split(' ')[0]
 ```
 
-Compare against the published checksum, ignoring case — PowerShell prints uppercase, the
-published file is lowercase.
+`True` means the file is intact. `-eq` ignores case, so the uppercase PowerShell prints and
+the lowercase in the published file do not matter.
+
+Name the file rather than using a wildcard: a browser that saved a second copy leaves two
+installers in the folder, and a wildcard would hash both.
+
+This proves the download was not corrupted or truncated in transit. It does **not** establish
+that the build is trustworthy — the installer and the checksum are published together, so
+anyone able to replace one could replace the other. The section above is the check that does
+not depend on trusting the publisher.
 
 ## Reporting something
 
