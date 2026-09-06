@@ -73,21 +73,60 @@ program does once it is running.
 
 ### Optional: confirming the download arrived intact
 
-Every release also publishes `SHA256SUMS.txt`. If you want to confirm the file you downloaded
-is byte-for-byte the file that was built, run this in PowerShell:
+Every release also publishes `SHA256SUMS.txt`. Download it next to the installer, then run
+this in PowerShell from the folder holding both:
 
 ```powershell
-Get-FileHash .\Crabwise-Setup-*.exe -Algorithm SHA256
+(Get-FileHash .\Crabwise-Setup-0.1.0.exe -Algorithm SHA256).Hash -eq (Get-Content .\SHA256SUMS.txt).Split(' ')[0]
 ```
 
-PowerShell prints the hash in **uppercase** and `SHA256SUMS.txt` is lowercase, so compare
-them ignoring case. They match or they do not; the letter casing means nothing.
+It prints one word. **`True`** means the file is intact. `False` means download it again.
 
-Worth knowing what that does and does not tell you. It catches a download that was corrupted
+Nothing to compare by eye, and no need to worry that PowerShell prints uppercase while the
+published file is lowercase — `-eq` ignores case.
+
+Two things that trip people up. Your browser may save a second copy as
+`Crabwise-Setup-0.1.0 (1).exe`, so use the real filename above or correct it to match what
+you actually have. And if you would rather just look at the hash yourself,
+`Get-FileHash .\Crabwise-Setup-0.1.0.exe -Algorithm SHA256` prints it — name the file rather
+than using a wildcard, which would silently hash every copy in the folder.
+
+Worth knowing what this does and does not tell you. It catches a download that was corrupted
 or interrupted. It **cannot** tell you whether the person who published it is honest, because
 the installer and the checksum come from the same place — anyone able to replace one could
 replace the other. Nothing published alongside a file can prove that, and any page claiming
 otherwise is overselling. That is what the check above is for.
+
+---
+
+## Your antivirus may block it as well, and it looks nothing like the warning above
+
+If it does, you will not get a "Run anyway" button. You get a small grey box saying **Windows
+cannot access the specified device, path, or file** and that you may not have the appropriate
+permissions.
+
+That message is misleading. Your permissions are fine, and the file is fine — Windows shows
+that dialog whenever something else refuses to let a program start, and it does not say who
+or why. AVG and Avast are the ones seen doing this so far.
+
+**It is a reputation rule, not a detection.** These products hold back programs that are both
+unsigned and *rare*, on the theory that a file almost nobody has downloaded is worth pausing.
+Crabwise is unsigned, and every new release starts at zero downloads, so it fits that
+description exactly — which also means the problem fades on its own as more people install
+it, and is at its worst in the days right after a release.
+
+To allow it, add an exception rather than switching protection off:
+
+- **AVG or Avast** — Menu → Settings → General → Exceptions → **Add Exception**, then the
+  installer or the folder it is in. If the file has already been taken, it will be in
+  Menu → **Quarantine** (AVG calls it the Virus Chest) and can be restored from there.
+- **Others** — look for "Exclusions", "Allowed apps" or "Quarantine".
+
+⚠️ **One thing worth telling apart.** A reputation hold says something vague — *this file is
+uncommon*, *we are checking it*. A real detection names a specific threat. If yours names
+one, do not add an exception. Use the checksum above to see whether your download matches
+what was published — and if it matches and your scanner still names a threat, please report
+it through [SECURITY.md](SECURITY.md) rather than clicking past it.
 
 ---
 
