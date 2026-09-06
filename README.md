@@ -59,20 +59,22 @@ certificate saying who published it, which is true and which the warning is righ
 rather not click past it, that is a completely reasonable place to stop. What you should not
 do is take a stranger's word for it — and that includes this page.
 
-So here are two things you can check yourself, neither of which requires believing anything
-written above:
+So don't. Check it instead.
 
-- **The checksum**, below. It proves the file you downloaded is the file that was published.
-  It cannot prove the person who published it is honest — nothing can, and any page claiming
-  otherwise is overselling. What it rules out is a download that was corrupted or swapped on
-  the way to you.
-- **What it actually talks to**, using a tool that ships with Windows. Crabwise makes one
-  claim above all others — that it only listens on your own machine and only sends one small
-  request a day — and you can watch that be true, live, in Resource Monitor.
-  [SECURITY.md](SECURITY.md) has the steps.
+Crabwise makes one claim above all others: that it only listens on your own machine, and
+that the only thing it ever sends out is one small file request a day. You can watch that be
+true, while it runs, using Resource Monitor — which is already on your computer. It takes
+about a minute, there is nothing to install, and there are no hex strings to compare by eye.
 
-Each release also publishes `SHA256SUMS.txt`. To check the file you downloaded matches the
-one that was built, run this in PowerShell and compare the result:
+**[The steps are in SECURITY.md](SECURITY.md).**
+
+That is the check worth doing, because it tests the thing that actually matters: what this
+program does once it is running.
+
+### Optional: confirming the download arrived intact
+
+Every release also publishes `SHA256SUMS.txt`. If you want to confirm the file you downloaded
+is byte-for-byte the file that was built, run this in PowerShell:
 
 ```powershell
 Get-FileHash .\Crabwise-Setup-*.exe -Algorithm SHA256
@@ -80,6 +82,12 @@ Get-FileHash .\Crabwise-Setup-*.exe -Algorithm SHA256
 
 PowerShell prints the hash in **uppercase** and `SHA256SUMS.txt` is lowercase, so compare
 them ignoring case. They match or they do not; the letter casing means nothing.
+
+Worth knowing what that does and does not tell you. It catches a download that was corrupted
+or interrupted. It **cannot** tell you whether the person who published it is honest, because
+the installer and the checksum come from the same place — anyone able to replace one could
+replace the other. Nothing published alongside a file can prove that, and any page claiming
+otherwise is overselling. That is what the check above is for.
 
 ---
 
