@@ -76,7 +76,7 @@ Every release publishes `SHA256SUMS.txt`. Download it beside the installer, then
 from the folder holding both:
 
 ```powershell
-(Get-FileHash .\Crabwise-Setup-0.1.0.exe -Algorithm SHA256).Hash -eq (Get-Content .\SHA256SUMS.txt).Split(' ')[0]
+(Get-FileHash .\Crabwise-Setup-0.2.0.exe -Algorithm SHA256).Hash -eq (Get-Content .\SHA256SUMS.txt).Split(' ')[0]
 ```
 
 `True` means the file is intact. `-eq` ignores case, so the uppercase PowerShell prints and
