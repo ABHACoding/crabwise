@@ -77,7 +77,7 @@ Every release also publishes `SHA256SUMS.txt`. Download it next to the installer
 this in PowerShell from the folder holding both:
 
 ```powershell
-(Get-FileHash .\Crabwise-Setup-0.2.0.exe -Algorithm SHA256).Hash -eq (Get-Content .\SHA256SUMS.txt).Split(' ')[0]
+(Get-FileHash .\Crabwise-Setup-0.2.1.exe -Algorithm SHA256).Hash -eq (Get-Content .\SHA256SUMS.txt).Split(' ')[0]
 ```
 
 It prints one word. **`True`** means the file is intact. `False` means download it again.
@@ -86,9 +86,9 @@ Nothing to compare by eye, and no need to worry that PowerShell prints uppercase
 published file is lowercase — `-eq` ignores case.
 
 Two things that trip people up. Your browser may save a second copy as
-`Crabwise-Setup-0.2.0 (1).exe`, so use the real filename above or correct it to match what
+`Crabwise-Setup-0.2.1 (1).exe`, so use the real filename above or correct it to match what
 you actually have. And if you would rather just look at the hash yourself,
-`Get-FileHash .\Crabwise-Setup-0.2.0.exe -Algorithm SHA256` prints it — name the file rather
+`Get-FileHash .\Crabwise-Setup-0.2.1.exe -Algorithm SHA256` prints it — name the file rather
 than using a wildcard, which would silently hash every copy in the folder.
 
 Worth knowing what this does and does not tell you. It catches a download that was corrupted
