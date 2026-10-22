@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crabwise: a live League of Legends overlay for OBS</title>
+  <meta name="description" content="Crabwise draws your CS and vision against your lane opponent, objective timers, a kill feed and an end-of-game recap over your OBS stream. Free for Windows, and it runs only on your PC.">
+  <link rel="canonical" href="https://abhacoding.github.io/crabwise/">
+  <link rel="icon" type="image/png" href="media/icon.png">
+  <link rel="stylesheet" href="site.css">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Crabwise: a live League of Legends overlay for OBS">
+  <meta property="og:description" content="Your CS and vision against your lane opponent, objective timers, a kill feed and an end-of-game recap, drawn over your stream. Free for Windows.">
+  <meta property="og:url" content="https://abhacoding.github.io/crabwise/">
+  <meta property="og:image" content="https://abhacoding.github.io/crabwise/media/overview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the content</a>
+
+  <header class="bar">
+    <div class="wrap bar-row">
+      <a class="brand" href="#top">
+        <img src="media/icon.png" alt="" width="28" height="26">
+        Crabwise
+      </a>
+      <nav class="nav" aria-label="Page">
+        <a href="#shows">What it shows</a>
+        <a href="#setup">Set up</a>
+        <a href="#safety">Safety</a>
+        <a href="#questions">Questions</a>
+        <a class="button button-small" href="https://github.com/ABHACoding/crabwise/releases/latest">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap">
+        <div class="hero-head">
+          <h1>Live lane stats for your League stream</h1>
+          <div>
+            <p class="lede">Crabwise draws your CS and vision against your opponent, objective timers, a kill feed and an end-of-game recap over your OBS scene. It is free, and it runs only on your PC.</p>
+            <div class="cta">
+              <a class="button" href="https://github.com/ABHACoding/crabwise/releases/latest">Download for Windows</a>
+              <p class="fine">Windows 10 and 11. The installer is not code-signed, so Windows will warn you. <a href="https://github.com/ABHACoding/crabwise#windows-will-warn-you-here-is-why-and-what-it-says">Here is what to expect</a>.</p>
+            </div>
+          </div>
+        </div>
+
+        <figure class="stage">
+          <div class="stage-box">
+            <div class="stage-frame">
+              <video id="demo" autoplay muted loop playsinline poster="media/overview.jpg" aria-label="The Crabwise overlay during a recorded match: bars comparing CS and vision, objective countdowns, and a kill feed filling in">
+                <source src="media/demo.webm" type="video/webm">
+                <img src="media/overview.jpg" alt="The Crabwise overlay during a recorded match" width="1920" height="1080">
+              </video>
+            </div>
+            <span class="mark mark-tl" aria-hidden="true"></span>
+            <span class="mark mark-tr" aria-hidden="true"></span>
+            <span class="mark mark-bl" aria-hidden="true"></span>
+            <span class="mark mark-br" aria-hidden="true"></span>
+          </div>
+          <figcaption class="caption">The real overlay replaying a recorded match, with player names replaced. The middle is empty because that is where your game goes. The gold corners are Crabwise's test pattern, which shows where the edges of your OBS source are.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="shows">
+      <div class="wrap section-grid">
+        <h2>What it puts on your stream</h2>
+        <div>
+          <ul class="parts">
+            <li class="part">
+              <div>
+                <h3>CS against your lane opponent</h3>
+                <p>Your CS per minute next to your opponent's, and the gap between them. In the default theme it turns cyan when you are 20 or more ahead and red when you are 20 or more behind. A small line shows how the gap has moved. Crabwise picks your opponent, or you can choose one. It hides itself for supports and in ARAM, where CS says little.</p>
+              </div>
+              <div class="plate">
+                <img src="media/cs-ahead.png" width="622" height="58" alt="The CS bar when ahead: Chogath at 2.0 CS per minute against Soraka at 0.3, a lead of 50 CS in cyan." loading="lazy">
+                <img src="media/cs-behind.png" width="642" height="58" alt="The CS bar when behind: Chogath at 2.1 CS per minute against Volibear at 6.8, a gap of 140 CS in red." loading="lazy">
+              </div>
+            </li>
+
+            <li class="part">
+              <div>
+                <h3>Vision against the enemy in your role</h3>
+                <p>Your vision score per minute against the player in your role on the other team. It exists for supports, whose CS comparison would be noise. It is off until you turn it on under Widgets, because it works for every role.</p>
+              </div>
+              <div class="plate">
+                <img src="media/vision-compare.png" width="666" height="58" alt="The vision bar: Chogath at 2.3 vision per minute against Soraka at 1.7, a lead of 16 vision in cyan." loading="lazy">
+              </div>
+            </li>
+
+            <li class="part">
+              <div>
+                <h3>Objective timers</h3>
+                <p>Respawn countdowns for Dragon, Elder and Baron, started from kills Crabwise actually saw. Nothing is predicted, so a timer only appears once there is something to count from.</p>
+              </div>
+              <div class="plate">
+                <img src="media/objective-timers.png" width="164" height="77" alt="Two countdowns: Baron at 0:27 and Dragon at 1:57." loading="lazy">
+              </div>
+            </li>
+
+            <li class="part">
+              <div>
+                <h3>Kill feed</h3>
+                <p>Recent champion kills with portraits. It is capped, so starting Crabwise mid-game does not dump half an hour of old kills onto your stream.</p>
+              </div>
+              <div class="plate">
+                <img src="media/kill-feed.png" width="272" height="132" alt="Three kill feed rows, each showing a killer's portrait and name, crossed swords, the victim's portrait and struck-through name, and an assist count." loading="lazy">
+              </div>
+            </li>
+
+            <li class="part">
+              <div>
+                <h3>Award cards</h3>
+                <p>Ten cards that rotate through the match, like Team Clown for the most deaths. You can exempt yourself.</p>
+              </div>
+              <div class="plate">
+                <img src="media/awards.png" width="287" height="115" alt="An award card reading Team Clown, naming Lucian with 10 deaths." loading="lazy">
+              </div>
+            </li>
+
+            <li class="part">
+              <div>
+                <h3>Session record</h3>
+                <p>Your wins and losses for the session, with the game mode and your last champion. It stays up between games. You mark each result from the tray, because League does not reliably report who won.</p>
+              </div>
+              <div class="plate">
+                <img src="media/session-record.png" width="403" height="74" alt="The session card: Summoner's Rift, 0 wins and 0 losses." loading="lazy">
+              </div>
+            </li>
+
+            <li class="part">
+              <div>
+                <h3>End-of-game summary</h3>
+                <p>A final scoreboard and lane comparison when the match ends, held on screen for as long as you choose.</p>
+              </div>
+              <div class="plate">
+                <img src="media/match-summary.png" width="596" height="241" alt="The end-of-game card: Game over at 31:19, Chogath against Kayle with kills, deaths, assists and CS for each, and the CS gap." loading="lazy">
+              </div>
+            </li>
+          </ul>
+
+          <p class="also">There are five themes, a custom accent colour, a size for each widget, and a layout editor that shows the real overlay while you drag things around.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="setup">
+      <div class="wrap section-grid">
+        <h2>Set it up in OBS</h2>
+        <div>
+          <ol class="steps">
+            <li>
+              <strong>Install Crabwise</strong>
+              <span>Start it. It lives in your system tray.</span>
+            </li>
+            <li>
+              <strong>Copy your overlay URL</strong>
+              <span>It is on the Setup screen.</span>
+            </li>
+            <li>
+              <strong>Add a Browser source</strong>
+              <span>In OBS, paste the URL and set the size to match your canvas.</span>
+            </li>
+          </ol>
+          <p class="note"><strong>Check it worked</strong> with the test pattern button on the Setup screen. Four corner marks appear on the overlay for two minutes, with no game running, and they should sit on the edges of your source. Your URL contains a key that is unique to your install, so keep it off stream. The <a href="https://github.com/ABHACoding/crabwise#setting-it-up-in-obs">full setup guide</a> covers the rest, including starting with Windows.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="safety">
+      <div class="wrap section-grid">
+        <h2>What it does on your computer</h2>
+        <div>
+          <dl class="claims">
+            <div>
+              <dt>It reads one thing</dt>
+              <dd>The Live Client Data API that the League client serves on your own machine during a match. It never reads game memory, injects code or hooks the game.</dd>
+            </div>
+            <div>
+              <dt>It only listens locally</dt>
+              <dd>Its server is bound to your machine, and every install has its own key, so other pages on your computer and other devices on your network cannot read your match data.</dd>
+            </div>
+            <div>
+              <dt>It sends almost nothing out</dt>
+              <dd>One small file request a day, for objective respawn times. No identifiers, no account name and no match data go with it, and you can switch it off.</dd>
+            </div>
+            <div>
+              <dt>It has no tracking</dt>
+              <dd>No analytics, no crash reporting, no account and no server. Your match data goes from your machine to your own OBS and stops there.</dd>
+            </div>
+          </dl>
+          <p class="note"><strong>Do not take this page's word for it.</strong> Resource Monitor, which is already part of Windows, shows what Crabwise connects to while it runs. The <a href="https://github.com/ABHACoding/crabwise/blob/main/SECURITY.md">steps take about a minute</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="questions">
+      <div class="wrap section-grid">
+        <h2>Questions</h2>
+        <div class="faq">
+          <details>
+            <summary>Why does Windows warn me?</summary>
+            <p>The installer is not code-signed, so Windows has no publisher to show you and says so. The warning means that and nothing more. The <a href="https://github.com/ABHACoding/crabwise#windows-will-warn-you-here-is-why-and-what-it-says">README</a> has the steps to continue, and how to check what the app does first.</p>
+          </details>
+          <details>
+            <summary>My antivirus blocked it</summary>
+            <p>AVG and Avast hold back programs that are both unsigned and rare, which every new release is. You may see a grey box saying Windows cannot access the specified device, path or file. Adding an exception fixes it, and the <a href="https://github.com/ABHACoding/crabwise#your-antivirus-may-block-it-as-well-and-it-looks-nothing-like-the-warning-above">README</a> shows how. It happens less as more people install a release.</p>
+          </details>
+          <details>
+            <summary>Does it show my rank or LP?</summary>
+            <p>No. The game data Crabwise reads does not include them.</p>
+          </details>
+          <details>
+            <summary>Which roles is it for?</summary>
+            <p>The CS bar is for lane roles and hides itself for supports and in ARAM, unless you pick an opponent for it. The vision bar is there for supports, and works in any role once you turn it on.</p>
+          </details>
+          <details>
+            <summary>Does it cost anything?</summary>
+            <p>No. Crabwise is free and always will be.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <nav class="foot-links" aria-label="Project">
+        <a href="https://github.com/ABHACoding/crabwise/releases">Releases</a>
+        <a href="https://github.com/ABHACoding/crabwise#readme">README</a>
+        <a href="https://github.com/ABHACoding/crabwise/blob/main/SECURITY.md">Security</a>
+      </nav>
+      <p>Crabwise's own code is MIT licensed, with no warranty of any kind. Champion portraits and the app icon are Riot Games artwork, included under Riot's fan-content policy, and are not covered by that licence.</p>
+      <p>Crabwise isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    </div>
+  </footer>
+
+  <script>
+    // The demo autoplays, silently and on a loop. Someone who has asked their system for less
+    // motion gets a still frame and the controls instead.
+    (function () {
+      var demo = document.getElementById('demo');
+      if (demo && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        demo.removeAttribute('autoplay');
+        demo.pause();
+        demo.setAttribute('controls', '');
+      }
+    })();
+  </script>
+</body>
+</html>
