@@ -6,9 +6,18 @@ and "trust me" is not good enough.
 
 ## What it reads
 
-One thing: `https://127.0.0.1:2999`, the Live Client Data API that Riot's own game client
-publishes on your machine while you are in a match. It is an ordinary local web address —
-your browser can open it.
+By default, one thing: `https://127.0.0.1:2999`, the Live Client Data API that Riot's own game
+client publishes on your machine while you are in a match. It is an ordinary local web
+address — your browser can open it.
+
+**Optionally, a second: the League client.** Off by default. If you switch on **Widgets →
+League client → Read the League client**, Crabwise also reads the League client's own local
+API, on `127.0.0.1` at a port the client chooses each time it starts. It uses that for your
+rank and LP, the result of your ranked games, and the name of the queue you are playing. It
+sends only `GET` requests to three fixed addresses, and the code refuses any other. Data about
+other players that one of them returns is dropped on arrival, never stored or logged. Riot
+calls that API unsupported for third-party apps, so a client update can stop it working. Off,
+the League client is never contacted.
 
 **It never reads game memory, injects code, or hooks the game process.** There is nothing to
 detect and nothing to flag, because it does not touch the game at all. That is not a promise
@@ -40,8 +49,8 @@ anything.
 There is no analytics, no crash reporting, no account and no server. Your match data goes
 from your machine to your own OBS and stops.
 
-Logs and the **Copy diagnostics** blob deliberately exclude Riot IDs, match data and your
-overlay key, because those get pasted in public when someone asks for help.
+Logs and the **Copy diagnostics** blob deliberately exclude Riot IDs, PUUIDs, the League
+client's password, match data and your overlay key, because those get pasted in public when someone asks for help.
 
 ## Checking it yourself
 
@@ -59,7 +68,11 @@ and there is a test in the build that fails if it ever does.
 3. Start a game and expand **TCP Connections**.
 
 `Crabwise.exe` connects to **`127.0.0.1:2999`**. That is the game's own API, on your own
-machine — the one thing this app reads. Both ends of that connection are your PC.
+machine. Both ends of that connection are your PC.
+
+With **Read the League client** switched on, you will also see a connection to `127.0.0.1` on
+another port, whenever the League client is open: that is the client, also on your PC. Switch
+it off and that connection goes away.
 
 4. Leave it running and watch the remote addresses.
 
@@ -76,7 +89,7 @@ Every release publishes `SHA256SUMS.txt`. Download it beside the installer, then
 from the folder holding both:
 
 ```powershell
-(Get-FileHash .\Crabwise-Setup-0.2.2.exe -Algorithm SHA256).Hash -eq (Get-Content .\SHA256SUMS.txt).Split(' ')[0]
+(Get-FileHash .\Crabwise-Setup-0.3.0.exe -Algorithm SHA256).Hash -eq (Get-Content .\SHA256SUMS.txt).Split(' ')[0]
 ```
 
 `True` means the file is intact. `-eq` ignores case, so the uppercase PowerShell prints and
