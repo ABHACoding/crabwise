@@ -1,8 +1,9 @@
 # Crabwise
 
 A live stream overlay for League of Legends. Your CS and vision against your lane opponent,
-objective respawn timers, a kill feed, an end-of-game summary, ten rotating award cards, and
-a win/loss record you can mark from the tray between queues. Free, and it runs only on your PC.
+objective respawn timers, a kill feed, an end-of-game summary, ten rotating award cards, a
+win/loss record, and, if you switch it on, your rank and LP from the League client. Free, and
+it runs only on your PC.
 
 ![The Crabwise overlay during a recorded match: bars comparing CS and vision, objective countdowns and a kill feed](media/overview.jpg)
 
@@ -15,15 +16,24 @@ a win/loss record you can mark from the tray between queues. Free, and it runs o
 
 ## What it reads, and what it does not
 
-Crabwise reads one thing: `https://127.0.0.1:2999`, the Live Client Data API that Riot's own
-game client publishes on your machine while you are in a match. It is an ordinary local web
-address. Your browser could open it.
+By default Crabwise reads one thing: `https://127.0.0.1:2999`, the Live Client Data API that
+Riot's own game client publishes on your machine while you are in a match. It is an ordinary
+local web address. Your browser could open it.
+
+**Optionally, a second: the League client.** Off by default. If you switch on **Widgets →
+League client → Read the League client**, Crabwise also reads the League client's own local
+API, on `127.0.0.1` at a port the client chooses each time it starts. It uses that for your
+rank and LP, the result of your ranked games, and the name of the queue you are playing. It
+sends only `GET` requests to three fixed addresses, and the code refuses any other. Data about
+other players that one of them returns is dropped on arrival, never stored or logged. Riot
+calls that API unsupported for third-party apps, so a client update can stop it working. Off,
+the League client is never contacted.
 
 **It never reads game memory, injects code, or hooks the game process.** There is nothing to
 detect and nothing to flag, because it does not touch the game at all — it reads a webpage
 the game is already serving.
 
-That is not a promise about intent, it is a description of the only thing the code can do.
+That is not a promise about intent, it is a description of what the code can do.
 
 ### What leaves your computer
 
@@ -81,7 +91,7 @@ Every release also publishes `SHA256SUMS.txt`. Download it next to the installer
 this in PowerShell from the folder holding both:
 
 ```powershell
-(Get-FileHash .\Crabwise-Setup-0.2.2.exe -Algorithm SHA256).Hash -eq (Get-Content .\SHA256SUMS.txt).Split(' ')[0]
+(Get-FileHash .\Crabwise-Setup-0.3.0.exe -Algorithm SHA256).Hash -eq (Get-Content .\SHA256SUMS.txt).Split(' ')[0]
 ```
 
 It prints one word. **`True`** means the file is intact. `False` means download it again.
@@ -90,9 +100,9 @@ Nothing to compare by eye, and no need to worry that PowerShell prints uppercase
 published file is lowercase — `-eq` ignores case.
 
 Two things that trip people up. Your browser may save a second copy as
-`Crabwise-Setup-0.2.2 (1).exe`, so use the real filename above or correct it to match what
+`Crabwise-Setup-0.3.0 (1).exe`, so use the real filename above or correct it to match what
 you actually have. And if you would rather just look at the hash yourself,
-`Get-FileHash .\Crabwise-Setup-0.2.2.exe -Algorithm SHA256` prints it — name the file rather
+`Get-FileHash .\Crabwise-Setup-0.3.0.exe -Algorithm SHA256` prints it — name the file rather
 than using a wildcard, which would silently hash every copy in the folder.
 
 Worth knowing what this does and does not tell you. It catches a download that was corrupted
@@ -178,7 +188,7 @@ Crabwise's own code is MIT licensed — see the `LICENSE` file published alongsi
 installer. It comes with no warranty of any kind, which is worth reading before you run an
 unsigned binary from the internet.
 
-Champion portraits and the app icon are Riot Games artwork, included under Riot's
+Champion portraits, ranked emblems and the app icon are Riot Games artwork, included under Riot's
 fan-content policy. They are not covered by that licence and are not mine to relicense.
 Crabwise is free and always will be.
 
