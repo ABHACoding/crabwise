@@ -133,14 +133,9 @@ a:hover {
   text-decoration: none;
 }
 
-/* The icon is dark brown artwork, which disappears into a navy bar; a gold plate gives it
-   something to read against and matches the button. */
 .brand img {
   width: 2rem;
   height: auto;
-  padding: 0.2rem 0.25rem;
-  background: var(--gold);
-  border-radius: 6px;
 }
 
 .nav {
